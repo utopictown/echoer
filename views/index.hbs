@@ -1,0 +1,44 @@
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous"
+	src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v8.0&appId=649392062610380&autoLogAppEvents=1"
+	nonce="tWaVMiQC"></script>
+
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+
+<div class="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default"
+	data-auto-logout-link="false" data-use-continue-as="true" data-width="" onlogin="testAPI()"
+	scope="pages_manage_posts,pages_messaging,pages_show_list"></div>
+<div id="status">
+</div>
+<script>
+	window.fbAsyncInit = function () {
+		FB.init({
+			appId: '649392062610380',
+			autoLogAppEvents: true,
+			xfbml: true,
+			version: 'v8.0'
+		});
+		getMessages();
+	};
+	function testAPI() {
+		console.log('Welcome!  Fetching your information.... ');
+		FB.api('/me', function (response) {
+			console.log('Successful login for: ' + response.name);
+			document.getElementById('status').innerHTML =
+				'Thanks for logging in, ' + response.name + '!';
+		});
+		window.getMessages()
+	}
+	function getMessages() {
+		FB.api('/me/accounts', function (response) {
+			console.log(response, "sini")
+			if (response.data) localStorage.setItem("page_token", response.data[0].access_token);
+			var pageToken = localStorage.getItem("page_token");
+			FB.api('t_1445334692329720', { fields: 'messages{message,from}', access_token: pageToken }, function (res) {
+				console.log(res)
+			})
+		})
+	}
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>

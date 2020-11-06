@@ -1,0 +1,16 @@
+{{#each data.data}}
+{{#each messages.data}}
+<div
+  style="background-color:{{#if_even @index}}#0898fc{{/if_even}}{{#if_odd @index}}#0898fcd9{{/if_odd}};padding:15px;border-radius:15px;margin-bottom:10px;color:white">
+  <span style="background-color:#0880fc;border-radius:10px; display:block; padding:10px">
+    <p style="margin:0">{{from.name}}</p>
+  </span>
+  <p>{{message}}</p>
+  {{#if attachments}}
+  {{#each attachments.data}}
+  <img src="{{image_data.preview_url}}" alt="" width="100" style="border-radius: 10px;">
+  {{/each}}
+  {{/if}}
+</div>
+{{/each}}
+{{/each}}
