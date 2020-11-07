@@ -3,6 +3,7 @@ var router = express.Router();
 var passport = require("passport");
 var Strategy = require("passport-facebook").Strategy;
 var axios = require("axios");
+var Setting = require("../models/setting");
 require("dotenv").config();
 
 passport.use(
@@ -38,7 +39,7 @@ async function getLongLivedToken(token) {
     );
     return result.data.access_token;
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }
 
@@ -55,7 +56,13 @@ router.get(
   passport.authenticate("facebook", { failureRedirect: "/login" }),
   function (req, res) {
     // Successful authentication, redirect home.
-    res.redirect("/");
+    Setting.findOneAndUpdate({ key: "booted", value: 0 })
+      .then(() => {
+        res.redirect("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 );
 
