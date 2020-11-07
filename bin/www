@@ -7,7 +7,6 @@
 var app = require("../app");
 var debug = require("debug")("echoer:server");
 var http = require("http");
-var devcert = require("devcert");
 var fs = require("fs");
 var mongoose = require("mongoose");
 
@@ -31,7 +30,7 @@ var server = http.createServer(options, app);
  * Listen on provided port, on all network interfaces.
  */
 mongoose
-  .connect("mongodb://localhost/echoer", {
+  .connect(proce.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
