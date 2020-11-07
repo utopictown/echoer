@@ -2,34 +2,19 @@ var express = require("express");
 var router = express.Router();
 var FB = require("fb");
 var axios = require("axios");
-const fetchMessages = require("../services/fetchMessages");
+const boot = require("../services/boot");
+const Setting = require("../models/setting");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  // if (req.user) {
-  //   FB.setAccessToken(req.user);
-  //   FB.api("/me/accounts", "get", function (res) {
-  //     if (!res || res.error) {
-  //       console.log(!res ? "error occurred" : res.error);
-  //       return;
-  //     }
-  //     axios
-  //       .post("https://graph.facebook.com/108053857726276/photos", {
-  //         message: "nyoters",
-  //         url: "https://wallpapercave.com/wp/wp2573765.jpg",
-  //         access_token: res.data[0].access_token,
-  //       })
-  //       .then((res) => {
-  //         console.log(res);
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //         return;
-  //       });
-  //   });
-  // }
-  console.log("indexx", req.FBPageToken);
-  if (req.FBPageToken != null) fetchMessages(req);
+router.get("/", async function (req, res, next) {
+  if (req.FBPageToken != null) {
+    const bootCond = { key: "booted", value: 1 };
+    const isBooted = await Setting.findOne(bootCond);
+    if (!isBooted) {
+      await Setting.findOneAndUpdate(bootCond);
+      boot(req);
+    }
+  }
   res.render("index", { title: "Express" });
 });
 
