@@ -64,7 +64,7 @@ async function addQueue() {
       }
     }
     console.log("message collected!");
-    return toSendList;
+    return toSendList.filter((el) => el != null);
   } catch (error) {
     console.error(error);
   }
@@ -148,13 +148,13 @@ module.exports = async function boot(req) {
     } else {
       await fetchMessage(req);
       const queueData = await addQueue();
-      await postToPage(req, queueData);
+      if (queueData.length) await postToPage(req, queueData);
       const bootInterval = setInterval(async () => {
         const active = await Setting.findOne({ key: "booted", value: 1 });
         if (active) {
           await fetchMessage(req);
           const queueData = await addQueue();
-          await postToPage(req, queueData);
+          if (queueData.length) await postToPage(req, queueData);
         } else {
           console.log("operation has been shut down");
           clearInterval(bootInterval);
