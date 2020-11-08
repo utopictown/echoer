@@ -11,7 +11,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: "/auth/facebook/callback",
+      callbackURL: process.env.APP_URL + "/auth/facebook/callback",
     },
     async function (accessToken, refreshToken, profile, cb) {
       // User.findOrCreate({ facebookId: profile.id }, function (err, user) {
