@@ -61,7 +61,7 @@ router.get(
         res.redirect("/");
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }
 );
