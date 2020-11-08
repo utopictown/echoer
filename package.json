@@ -1,7 +1,8 @@
 {
-  "name": "echoer",
+  "name": "white-bird-app",
   "version": "0.0.0",
   "private": true,
+  "author": "utopictown",
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www"
@@ -27,5 +28,8 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
+  },
+  "engines": {
+    "node": "15.x"
   }
 }
