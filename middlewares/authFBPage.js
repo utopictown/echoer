@@ -1,6 +1,5 @@
 var FB = require("fb");
 module.exports = function authFBPage(req, res, next) {
-  console.log("req.user ->", req.user);
   if (req.user) {
     FB.setAccessToken(req.user);
     FB.api("/me/accounts", "get", function (res) {
