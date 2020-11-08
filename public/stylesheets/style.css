@@ -3,8 +3,18 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   max-width: 480px;
   margin: auto;
+  text-align: center;
 }
 
 a {
   color: #00b7ff;
+}
+
+.login-button > a {
+  background-color: #1877f2;
+  padding: 15px;
+  border-radius: 5px;
+  font-weight: bolder;
+  text-decoration: none;
+  color: white;
 }

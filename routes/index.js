@@ -7,6 +7,7 @@ const Setting = require("../models/setting");
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
+  let isNotLoggedIn = true;
   if (req.FBPageToken != null) {
     const bootCond = { key: "booted", value: 1 };
     const isBooted = await Setting.findOne(bootCond);
@@ -14,8 +15,9 @@ router.get("/", async function (req, res, next) {
       await Setting.findOneAndUpdate(bootCond);
       boot(req);
     }
+    isNotLoggedIn = false;
   }
-  res.render("index", { title: "Express" });
+  res.render("index", { title: "White Bird", isNotLoggedIn });
 });
 
 module.exports = router;
