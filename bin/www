@@ -30,7 +30,7 @@ var server = http.createServer(options, app);
  * Listen on provided port, on all network interfaces.
  */
 mongoose
-  .connect(proce.env.DB_URI, {
+  .connect(process.env.DB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
