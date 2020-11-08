@@ -10,6 +10,7 @@ module.exports = function authFBPage(req, res, next) {
       }
       req.FBPageToken = res.data[0].access_token;
       req.FBPageId = res.data[0].id;
+      console.log("logged in as ", res.data[0].name);
       next();
     });
   } else {
