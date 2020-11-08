@@ -10,11 +10,6 @@ var http = require("http");
 var fs = require("fs");
 var mongoose = require("mongoose");
 
-const options = {
-  key: fs.readFileSync("key.pem"),
-  cert: fs.readFileSync("cert.pem"),
-};
-
 /**
  * Create HTTP server.
  */
@@ -25,7 +20,7 @@ const options = {
 
 var port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
-var server = http.createServer(options, app);
+var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
